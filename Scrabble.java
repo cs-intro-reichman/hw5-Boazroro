@@ -74,7 +74,6 @@ public class Scrabble {
 	}
 	
 
-  
 	public static void playHand(String hand) {
 		int score = 0;
 		In in = new In();
@@ -97,10 +96,10 @@ public class Scrabble {
 	
 					System.out.println(input + " earned " + wordScore + " points. Score: " + score + " points\n");
 				} else {
-					System.out.println("this word isnt in the dictionary. Try again.\n");
+					System.out.println("No such word in the dictionary. Try again.\n");
 				}
 			} else {
-				System.out.println(". Try again not a possible word.\n");
+				System.out.println("Invalid word. Try again.\n");
 			}
 		}
 	

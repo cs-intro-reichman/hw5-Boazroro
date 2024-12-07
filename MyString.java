@@ -48,30 +48,25 @@ public class MyString {
      * @return true is str1 is a subset of str2, false otherwise
      */
     public static boolean subsetOf(String str1, String str2) {
-        int counter = 0;
-        if (str2.contains(str1)) {
-            return true;
-
+      
+        int[] charCount = new int[256];
+    
+      
+        for (char c : str2.toCharArray()) {
+            charCount[c]++;
         }
-        for (int i = 0; i < str1.length(); i++)
-
-        {
-            for (int j = 0; j < str2.length(); j++) {
-                if (str1.charAt(i) == str2.charAt(j)) {
-                    counter++;
-                    break;
-
-                }
+    
+        
+        for (char c : str1.toCharArray()) {
+            if (charCount[c] == 0) {
+                return false; 
             }
+            charCount[c]--; 
         }
-
-        if (counter == str1.length()) {
-            return true;
-
-        } else {
-            return false;
-        }
+    
+        return true; 
     }
+    
 
     /**
      * Returns a string which is the same as the given string, with a space
@@ -83,16 +78,18 @@ public class MyString {
      * @return a string consisting of the characters of str, separated by spaces.
      */
     public static String spacedString(String str) {
-        String spacedstr = "";
+        String spacedStr = "";
+    
         for (int i = 0; i < str.length(); i++) {
-
-            spacedstr += str.charAt(i) + " ";
-            if (i < str.length() - 1) {
-                spacedstr += "";
+            spacedStr += str.charAt(i);
+            if (i < str.length() - 1) { 
+                spacedStr += " ";
             }
         }
-        return spacedstr;
+    
+        return spacedStr;
     }
+    
 
     /**
      * Returns a string of n lowercase letters, selected randomly from
@@ -128,24 +125,32 @@ public class MyString {
      * @return a string consisting of str1 minus all the characters of str2
      */
     public static String remove(String str1, String str2) {
+ 
         String result = "";
+    
         for (int i = 0; i < str1.length(); i++) {
-            boolean found = false;
-
+            boolean found = false; 
+    
+          
             for (int j = 0; j < str2.length(); j++) {
                 if (str1.charAt(i) == str2.charAt(j)) {
-                    found = true;
+                    found = true; 
                     break;
                 }
             }
-
+    
+           
             if (!found) {
                 result += str1.charAt(i);
             }
         }
-
-        return result; // Return the resulting string
+    
+        return result;
     }
+    
+
+       
+    
 
     /**
      * Returns a string consisting of the given string, with the given

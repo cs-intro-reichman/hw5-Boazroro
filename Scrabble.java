@@ -44,29 +44,36 @@ public class Scrabble {
 
 	public static int wordScore(String word) {
 		int score = 0;
-	
+		
 		if (word == null || word.isEmpty()) {
-			return 0; 
+			return 0;
 		}
+	
+	
+		int letterSum = 0;
+		for (int i = 0; i < word.length(); i++) {
+			char currentChar = word.charAt(i);
+			int letterValue = currentChar - 'a'; 
+			letterSum += SCRABBLE_LETTER_VALUES[letterValue];
+		}
+	
+	
+		score = letterSum * word.length();
 	
 		
-		int[] SCRABBLE_LETTER_VALUES = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10 };
-	
-		word = word.toLowerCase(); 
-	
-		for (char ch : word.toCharArray()) {
-			if (ch >= 'a' && ch <= 'z') {
-				score += SCRABBLE_LETTER_VALUES[ch - 'a']; 
-			}
-		}
-	
 		if (word.length() == HAND_SIZE) {
 			score += 50;
+		}
+	
+		// Check for 'r', 'u', 'n', 'i' presence and add bonus points
+		if (word.contains("r") && word.contains("u") && word.contains("n") && word.contains("i")) {
+			score += 1000;
 		}
 	
 		return score;
 	}
 	
+
   
 	public static void playHand(String hand) {
 		int score = 0;

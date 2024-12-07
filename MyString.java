@@ -125,23 +125,14 @@ public class MyString {
      * @return a string consisting of str1 minus all the characters of str2
      */
     public static String remove(String str1, String str2) {
-        String result = "";
-        String tempStr2 = str2;  
-    
-        for (int i = 0; i < str1.length(); i++) {
-            char currentChar = str1.charAt(i);
-            if (tempStr2.indexOf(currentChar) != -1) {  
-               
-                tempStr2 = tempStr2.replaceFirst(String.valueOf(currentChar), "");
-            } else {
-                
-                result += currentChar;
+        //// Replace the following statement with your code
+            int checking = 0;
+            for(int i = 0 ; i < str2.length() ; i ++) {
+             checking = str1.indexOf(str2.charAt(i));
+                str1 = str1.substring(0, checking) + str1.substring(checking + 1, str1.length());
             }
+            return str1;
         }
-    
-        return result;
-    }
-    
     
 
        

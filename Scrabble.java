@@ -90,38 +90,58 @@ public class Scrabble {
     }
 
   
-    public static void playHand(String hand) {
-        int score = 0;
-        In in = new In();
-
-        while (hand.length() > 0) {
-            System.out.println("Current Hand: " + MyString.spacedString(hand));
-            System.out.println("Enter a word, or '.' to finish playing this hand:");
-            String input = in.readString();
-
-            if (input.equals(".")) {
-                break;
-            }
-
-       
-            if (isWordInDictionary(input)) {
-                int wordScore = wordScore(input);
-                score += wordScore;
-
-              
-                for (int i = 0; i < input.length(); i++) {
-                    hand = hand.replaceFirst(String.valueOf(input.charAt(i)), "");
-                }
-
-                System.out.println("You earned " + wordScore + " points for the word '" + input + "'.");
-            } else {
-                System.out.println("Invalid word. Try again.");
-            }
-        }
-
-        System.out.println("End of hand. Total score: " + score + " points");
-    }
-
+	public static void playHand(String hand) {
+		int score = 0;
+		In in = new In();
+	
+		while (hand.length() > 0) {
+			System.out.println("Current Hand: " + MyString.spacedString(hand));
+			System.out.println("Enter a word, or '.' to finish playing this hand:");
+	
+			String input = in.readString().toLowerCase();
+	
+			if (input.equals(".")) {
+				break;
+			}
+	
+			if (!isWordInDictionary(input)) {
+				System.out.println("Invalid word. Try again.");
+				continue;
+			}
+	
+			if (!canFormWord(hand, input)) {
+				System.out.println("Word cannot be formed from the current hand. Try again.");
+				continue;
+			}
+	
+			int wordScore = wordScore(input);
+			score += wordScore;
+	
+			for (char ch : input.toCharArray()) {
+				int index = hand.indexOf(ch);
+				if (index != -1) {
+					hand = hand.substring(0, index) + hand.substring(index + 1);
+				}
+			}
+	
+			System.out.println("You earned " + wordScore + " points for the word '" + input + "'.");
+		}
+	
+		System.out.println("End of hand. Total score: " + score + " points");
+	}
+	
+	public static boolean canFormWord(String hand, String word) {
+		String tempHand = hand;
+		for (char ch : word.toCharArray()) {
+			int index = tempHand.indexOf(ch);
+			if (index == -1) {
+				return false;
+			}
+			tempHand = tempHand.substring(0, index) + tempHand.substring(index + 1);
+		}
+		return true;
+	}
+	
     
     public static void playGame() {
         init();

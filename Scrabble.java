@@ -53,38 +53,40 @@ public class Scrabble {
         return hand;
     }
 
-    public static void playHand(String hand) {
-        int score = 0;
-        In userInputReader = new In();
-        while (hand.length() > 0) {
-            System.out.println("Current Hand: " + MyString.spacedString(hand));
-            System.out.println("Enter a word, or '.' to finish:");
-            String userInput = userInputReader.readString();
-
-            if (userInput.equals(".")) {
-                break;
-            }
-
-            if (MyString.subsetOf(userInput, hand)) {
-                if (isWordInDictionary(userInput)) {
-                    hand = MyString.remove(hand, userInput);
-                    score += wordScore(userInput);
-                    System.out.println(userInput + " earned " + wordScore(userInput) + " points. Total score: " + score);
-                    System.out.println();
-                } else {
-                    System.out.println("Word not found in dictionary. Try again.");
-                    System.out.println();
-                }
-            } else {
-                System.out.println("Invalid word. Try again.");
-            }
-        }
-        if (hand.length() == 0) {
-            System.out.println("Out of letters. Total score: " + score + " points");
-        } else {
-            System.out.println("End of hand. Total score: " + score + " points");
-        }
-    }
+	public static void playHand(String hand) {
+		int score = 0;
+		In userInputReader = new In();
+		while (hand.length() > 0) {
+			System.out.println("Current Hand: " + MyString.spacedString(hand));
+			System.out.println("Enter a word, or '.' to finish playing this hand:"); // updated prompt
+			String userInput = userInputReader.readString();
+	
+			if (userInput.equals(".")) {
+				break;
+			}
+	
+			if (MyString.subsetOf(userInput, hand)) {
+				if (isWordInDictionary(userInput)) {
+					hand = MyString.remove(hand, userInput);
+					score += wordScore(userInput);
+					System.out.println(userInput + " earned " + wordScore(userInput) + " points. Total score: " + score);
+					System.out.println();
+				} else {
+					System.out.println("Word not found in dictionary. Try again.");
+					System.out.println();
+				}
+			} else {
+				System.out.println("Invalid word. Try again.");
+			}
+		}
+		if (hand.length() == 0) {
+			System.out.println("Out of letters. Total score: " + score + " points");
+		} else {
+			System.out.println("End of hand. Total score: " + score + " points");
+		}
+	}
+	
+	
 
     public static void playGame() {
         init();

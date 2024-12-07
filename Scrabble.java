@@ -49,6 +49,9 @@ public class Scrabble {
 			return 0; 
 		}
 	
+		
+		int[] SCRABBLE_LETTER_VALUES = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10 };
+	
 		word = word.toLowerCase(); 
 	
 		for (char ch : word.toCharArray()) {
@@ -57,7 +60,6 @@ public class Scrabble {
 			}
 		}
 	
-		
 		if (word.length() == HAND_SIZE) {
 			score += 50;
 		}
@@ -65,30 +67,6 @@ public class Scrabble {
 		return score;
 	}
 	
-
-    public static String createHand() {
-        Random rand = new Random();
-
-       
-        String randomLetters = MyString.randomStringOfLetters(HAND_SIZE - 2);
-
-        int insertIndexA = rand.nextInt(randomLetters.length() + 1);
-        int insertIndexE = rand.nextInt(randomLetters.length() + 1);
-
-      
-        while (insertIndexA == insertIndexE) {
-            insertIndexE = rand.nextInt(randomLetters.length() + 1);
-        }
-
- 
-        StringBuilder hand = new StringBuilder(randomLetters);
-        hand.insert(insertIndexA, 'a');
-        hand.insert(insertIndexE, 'e');
-
-        
-        return hand.toString();
-    }
-
   
 	public static void playHand(String hand) {
 		int score = 0;
@@ -175,6 +153,34 @@ public class Scrabble {
         }
         System.out.println(isWordInDictionary("mango"));
     }
+	public static String createHand() {
+		Random rand = new Random();
+		String randomLetters = "";
+	
+		// Generate random letters for the hand
+		for (int i = 0; i < HAND_SIZE - 2; i++) {
+			char randomChar = (char) ('a' + rand.nextInt(26)); // Generate a random letter between 'a' and 'z'
+			randomLetters += randomChar; // Add the random character to the string
+		}
+	
+		// Randomly insert 'a' and 'e' into the string
+		int insertIndexA = rand.nextInt(randomLetters.length() + 1);
+		int insertIndexE = rand.nextInt(randomLetters.length() + 1);
+	
+		// Ensure 'a' and 'e' are not inserted at the same position
+		while (insertIndexA == insertIndexE) {
+			insertIndexE = rand.nextInt(randomLetters.length() + 1);
+		}
+	
+		// Insert 'a' at the random position insertIndexA
+		randomLetters = randomLetters.substring(0, insertIndexA) + 'a' + randomLetters.substring(insertIndexA);
+	
+		// Insert 'e' at the random position insertIndexE
+		randomLetters = randomLetters.substring(0, insertIndexE) + 'e' + randomLetters.substring(insertIndexE);
+	
+		return randomLetters;
+	}
+	
 
     public static void testScrabbleScore() {
         System.out.println(wordScore("bee"));

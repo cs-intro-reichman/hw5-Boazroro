@@ -42,28 +42,29 @@ public class Scrabble {
     }
 
 
-    public static int wordScore(String word) {
-        String runi = "runi";
-        int score = 0;
-
-
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            int letterIndex = ch - 'a';
-            score += SCRABBLE_LETTER_VALUES[letterIndex];
-        }
-
-        if (word.length() == HAND_SIZE) {
-            score += 50;
-        }
-
-     
-        if (MyString.subsetOf(word, runi)) {
-            score += 1000;
-        }
-
-        return score;
-    }
+	public static int wordScore(String word) {
+		int score = 0;
+	
+		if (word == null || word.isEmpty()) {
+			return 0; 
+		}
+	
+		word = word.toLowerCase(); 
+	
+		for (char ch : word.toCharArray()) {
+			if (ch >= 'a' && ch <= 'z') {
+				score += SCRABBLE_LETTER_VALUES[ch - 'a']; 
+			}
+		}
+	
+		
+		if (word.length() == HAND_SIZE) {
+			score += 50;
+		}
+	
+		return score;
+	}
+	
 
     public static String createHand() {
         Random rand = new Random();

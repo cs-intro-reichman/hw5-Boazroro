@@ -89,31 +89,28 @@ public class Scrabble {
 				break;
 			}
 	
-			if (!isWordInDictionary(input)) {
-				System.out.println("Invalid word. Try again.");
-				continue;
-			}
+			if (MyString.subsetOf(input, hand)) {
+				if (isWordInDictionary(input) && !input.isEmpty()) {
+					hand = MyString.remove(hand, input);
+					int wordScore = wordScore(input);
+					score += wordScore;
 	
-			if (!canFormWord(hand, input)) {
-				System.out.println("Word cannot be formed from the current hand. Try again.");
-				continue;
-			}
-	
-			int wordScore = wordScore(input);
-			score += wordScore;
-	
-			for (char ch : input.toCharArray()) {
-				int index = hand.indexOf(ch);
-				if (index != -1) {
-					hand = hand.substring(0, index) + hand.substring(index + 1);
+					System.out.println(input + " earned " + wordScore + " points. Score: " + score + " points\n");
+				} else {
+					System.out.println("this word isnt in the dictionary. Try again.\n");
 				}
+			} else {
+				System.out.println(". Try again not a possible word.\n");
 			}
-	
-			System.out.println("You earned " + wordScore + " points for the word '" + input + "'.");
 		}
 	
-		System.out.println("End of hand. Total score: " + score + " points");
+		if (hand.length() == 0) {
+			System.out.println("Ran out of letters. Total score: " + score + " points");
+		} else {
+			System.out.println("End of hand. Total score: " + score + " points");
+		}
 	}
+	
 	
 	public static boolean canFormWord(String hand, String word) {
 		String tempHand = hand;

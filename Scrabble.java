@@ -18,6 +18,7 @@ public class Scrabble {
     }
 
     public static boolean isWordInDictionary(String word) {
+        int w =0;
         for (int i = 0; i < NUM_OF_WORDS; i++) {
             if (DICTIONARY[i].equals(word)) {
                 return true;

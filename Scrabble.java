@@ -1,7 +1,8 @@
 public class Scrabble {
 
     static final String WORDS_FILE = "dictionary.txt";
-    static final int[] SCRABBLE_LETTER_VALUES = {1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
+    static final int[] SCRABBLE_LETTER_VALUES = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4,
+            8, 4, 10 };
     static int HAND_SIZE = 10;
     static int MAX_NUMBER_OF_WORDS = 100000;
     static String[] DICTIONARY = new String[MAX_NUMBER_OF_WORDS];
@@ -18,7 +19,7 @@ public class Scrabble {
     }
 
     public static boolean isWordInDictionary(String word) {
-        int w =0;
+        int w = 0;
         for (int i = 0; i < NUM_OF_WORDS; i++) {
             if (DICTIONARY[i].equals(word)) {
                 return true;
@@ -41,7 +42,7 @@ public class Scrabble {
         }
 
         if (MyString.countChar(word, 'r') > 0 && MyString.countChar(word, 'u') > 0 &&
-            MyString.countChar(word, 'n') > 0 && MyString.countChar(word, 'i') > 0) {
+                MyString.countChar(word, 'n') > 0 && MyString.countChar(word, 'i') > 0) {
             score += 1000;
         }
         return score;
@@ -54,47 +55,47 @@ public class Scrabble {
         return hand;
     }
 
-	public static void playHand(String hand) {
-		int score = 0;
-		In userInputReader = new In();
-		while (hand.length() > 0) {
-			System.out.println("Current Hand: " + MyString.spacedString(hand));
-			System.out.println("Enter a word, or '.' to finish playing this hand:"); // updated prompt
-			String userInput = userInputReader.readString();
-	
-			if (userInput.equals(".")) {
-				break;
-			}
-	
-			if (MyString.subsetOf(userInput, hand)) {
-				if (isWordInDictionary(userInput)) {
-					hand = MyString.remove(hand, userInput);
-					score += wordScore(userInput);
-					System.out.println(userInput + " earned " + wordScore(userInput) + " points. Score: " + score + " points");
+    public static void playHand(String hand) {
+        int score = 0;
+        In userInputReader = new In();
+        while (hand.length() > 0) {
+            System.out.println("Current Hand: " + MyString.spacedString(hand));
+            System.out.println("Enter a word, or '.' to finish playing this hand:"); // updated prompt
+            String userInput = userInputReader.readString();
 
-					System.out.println();
-				} else {
-					System.out.println("Word not found in dictionary. Try again.");
-					System.out.println();
-				}
-			} else {
-				System.out.println("Invalid word. Try again.");
-			}
-		}
-		if (hand.length() == 0) {
-			System.out.println("Out of letters. Total score: " + score + " points");
-		} else {
-			System.out.println("End of hand. Total score: " + score + " points");
-		}
-	}
-	
-	
+            if (userInput.equals(".")) {
+                break;
+            }
+
+            if (MyString.subsetOf(userInput, hand)) {
+                if (isWordInDictionary(userInput)) {
+                    hand = MyString.remove(hand, userInput);
+                    score += wordScore(userInput);
+                    System.out.println(
+                            userInput + " earned " + wordScore(userInput) + " points. Score: " + score + " points");
+
+                    System.out.println();
+                } else {
+                    System.out.println("Word not found in dictionary. Try again.");
+                    System.out.println();
+                }
+            } else {
+                System.out.println("Invalid word. Try again.");
+            }
+        }
+        if (hand.length() == 0) {
+            System.out.println("Out of letters. Total score: " + score + " points");
+        } else {
+            System.out.println("End of hand. Total score: " + score + " points");
+        }
+    }
 
     public static void playGame() {
         init();
         In userInputReader = new In();
         while (true) {
-            System.out.println("Press 'n' for new hand, 'e' to end the game:");
+            System.out.println("Enter n to deal a new hand, or e to end the game:");
+
             String userInput = userInputReader.readString();
 
             if (userInput.equals("n")) {

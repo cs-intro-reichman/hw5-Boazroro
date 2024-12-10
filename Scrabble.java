@@ -70,7 +70,8 @@ public class Scrabble {
 				if (isWordInDictionary(userInput)) {
 					hand = MyString.remove(hand, userInput);
 					score += wordScore(userInput);
-					System.out.println(userInput + " earned " + wordScore(userInput) + " points. Total score: " + score);
+					System.out.println(userInput + " earned " + wordScore(userInput) + " points. Score: " + score + " points");
+
 					System.out.println();
 				} else {
 					System.out.println("Word not found in dictionary. Try again.");
